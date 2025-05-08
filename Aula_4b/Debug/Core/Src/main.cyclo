@@ -1,0 +1,7 @@
+../Core/Src/main.c:66:5:main	4
+../Core/Src/main.c:120:6:SystemClock_Config	3
+../Core/Src/main.c:156:13:MX_GPIO_Init	1
+../Core/Src/main.c:190:6:delay_eng421	2
+../Core/Src/main.c:196:9:debounce	3
+../Core/Src/main.c:209:5:soma	1
+../Core/Src/main.c:219:6:Error_Handler	1
