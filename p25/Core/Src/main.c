@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2025 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2025 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -97,12 +97,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if(debounce_timer(GPIOA, GPIO_PIN_0) == 0)
-    {
-    	/*Faz alguma coisa se passar no teste do if. PA0 está configurado como input pull-up, portanto, com 3V3.
+	  if(debounce_timer(GPIOA, GPIO_PIN_0) == 0)
+	  {
+		  /*Faz alguma coisa se passar no teste do if. PA0 está configurado como input pull-up, portanto, com 3V3.
         Ao pressionar o botão, que está ligado a gnd, leva o pino a 0v e a função retorna 0 se botão ficar
         pressionado por mais que 100 ms.*/
-    }
+	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -164,9 +164,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 7999;
+  htim2.Init.Prescaler = 8000 - 1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 49;
+  htim2.Init.Period = 65536 - 1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -226,16 +226,16 @@ static void MX_GPIO_Init(void)
  * retorna 1.*/
 uint8_t debounce_timer(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 {
-  volatile uint32_t now = TIM2->CNT;
-  if(HAL_GPIO_ReadPin(GPIOx, GPIO_Pin) == GPIO_PIN_RESET)
-  {
-	  if(TIM2->CNT - now >= 100)
-	  {
-		  now = TIM2->CNT;
-		  return 0;
-	  }
-  }
-  return 1;
+	volatile uint32_t now = TIM2->CNT;
+	if(HAL_GPIO_ReadPin(GPIOx, GPIO_Pin) == GPIO_PIN_RESET)
+	{
+		if(TIM2->CNT - now >= 100)
+		{
+			now = TIM2->CNT;
+			return 0;
+		}
+	}
+	return 1;
 }
 /* USER CODE END 4 */
 
@@ -246,11 +246,11 @@ uint8_t debounce_timer(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
-  {
-  }
+	/* User can add his own implementation to report the HAL error return state */
+	__disable_irq();
+	while (1)
+	{
+	}
   /* USER CODE END Error_Handler_Debug */
 }
 
@@ -265,7 +265,7 @@ void Error_Handler(void)
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
+	/* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }

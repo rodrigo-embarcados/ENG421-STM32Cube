@@ -133,7 +133,7 @@ int main(void)
     		{
     			GPIOC->ODR ^= (1 << 13);
     			uint32_t now = HAL_GetTick();
-    			while((HAL_GetTick() - now) < 1000);
+    			while((HAL_GetTick() - now) <= 1000);
     		}
     	}
     	else if(pressed == 3)
@@ -144,9 +144,8 @@ int main(void)
     		for(uint8_t i = 0; i < 6; i++)
     		{
     			*GPIOC_ODR ^= (1 << 13);
-    			uint16_t time = TIM3->CNT;
-    			while((uint16_t)(TIM3->CNT - time) < 1999);
-    			TIM3->CNT = 0; // Mesmo configurando o autoreloader, foi necessário resetar o contador aqui
+    			uint16_t now = TIM3->CNT;
+    			while(TIM3->CNT - now <= 2000);
     		}
     	}
     	triggered = 0; //Após a execução de um dos meios, triggered recebe 0 e só muda em um novo acionamento do botão
@@ -212,9 +211,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 7999;
+  htim2.Init.Prescaler = 8000 - 1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 999;
+  htim2.Init.Period = 65536 - 1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -257,9 +256,9 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 7999;
+  htim3.Init.Prescaler = 8000 - 1;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 1999;
+  htim3.Init.Period = 65536 - 1;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
