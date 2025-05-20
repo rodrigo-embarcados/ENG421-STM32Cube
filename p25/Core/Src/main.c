@@ -97,12 +97,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(debounce_timer(GPIOA, GPIO_PIN_0) == 0)
-	  {
-		  /*Faz alguma coisa se passar no teste do if. PA0 está configurado como input pull-up, portanto, com 3V3.
-        Ao pressionar o botão, que está ligado a gnd, leva o pino a 0v e a função retorna 0 se botão ficar
-        pressionado por mais que 100 ms.*/
-	  }
+    if(debounce_timer(GPIOA, GPIO_PIN_0) == 0)
+    {
+      /*Faz alguma coisa se passar no teste do if. PA0 está configurado como input pull-up, portanto, com 3V3.
+Ao pressionar o botão, que está ligado a gnd, leva o pino a 0v e a função retorna 0 se botão ficar
+pressionado por mais que 100 ms.*/
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -226,16 +226,16 @@ static void MX_GPIO_Init(void)
  * retorna 1.*/
 uint8_t debounce_timer(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 {
-	volatile uint32_t now = TIM2->CNT;
-	if(HAL_GPIO_ReadPin(GPIOx, GPIO_Pin) == GPIO_PIN_RESET)
-	{
-		if(TIM2->CNT - now >= 100)
-		{
-			now = TIM2->CNT;
-			return 0;
-		}
-	}
-	return 1;
+  volatile uint32_t now = TIM2->CNT;
+  if(HAL_GPIO_ReadPin(GPIOx, GPIO_Pin) == GPIO_PIN_RESET)
+  {
+    if(TIM2->CNT - now >= 100)
+    {
+      now = TIM2->CNT;
+      return 0;
+    }
+  }
+  return 1;
 }
 /* USER CODE END 4 */
 

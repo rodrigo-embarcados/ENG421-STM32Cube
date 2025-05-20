@@ -66,8 +66,8 @@ all: main-build
 main-build: Aula_4b.elf secondary-outputs
 
 # Tool invocations
-Aula_4b.elf Aula_4b.map: $(OBJS) $(USER_OBJS) /home/rodrigo/st/STM32CubeIDE/workspace_1.18.1/Aula_4b/STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Aula_4b.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/rodrigo/st/STM32CubeIDE/workspace_1.18.1/Aula_4b/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Aula_4b.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Aula_4b.elf Aula_4b.map: $(OBJS) $(USER_OBJS) /home/rodrigo/st/stm32cubeide_1.18.1/Projetos/Aula_4b/STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Aula_4b.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/rodrigo/st/stm32cubeide_1.18.1/Projetos/Aula_4b/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Aula_4b.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

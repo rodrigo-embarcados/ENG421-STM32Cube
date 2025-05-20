@@ -97,8 +97,8 @@ int main(void)
   {
     if(debounce(BUT_GPIO_Port, BUT_Pin))
     {
-    	led_on();
-    	while(HAL_GPIO_ReadPin(BUT_GPIO_Port, BUT_Pin) == 1);
+      led_on();
+      while(HAL_GPIO_ReadPin(BUT_GPIO_Port, BUT_Pin) == 1);
     }
     /* USER CODE END WHILE */
 
@@ -188,7 +188,7 @@ uint8_t debounce(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 	  HAL_Delay(DEB_DELAY);
 	  if(HAL_GPIO_ReadPin(GPIOx, GPIO_Pin) == 1)
 	  {
-		  return 1;
+	      return 1;
 	  }
   }
   return 0;
